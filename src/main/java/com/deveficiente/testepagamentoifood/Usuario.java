@@ -26,8 +26,21 @@ public class Usuario {
 	@Size(min = 1)
 	private Set<FormaPagamento> formasPagamento = new HashSet<>();
 
-	public Usuario(@NotBlank String nome, @Size(min = 1) FormaPagamento... possiveisFormasPagamento) {
+	@Deprecated
+	public Usuario() {
+
+	}
+
+	public Usuario(@NotBlank String nome,
+			@Size(min = 1) FormaPagamento... possiveisFormasPagamento) {
 		this.nome = nome;
-		this.formasPagamento.addAll(Stream.of(possiveisFormasPagamento).collect(Collectors.toSet()));
+		this.formasPagamento.addAll(Stream.of(possiveisFormasPagamento)
+				.collect(Collectors.toSet()));
+	}
+
+	public Set<FormaPagamento> pagamentosPossiveisParaRestaurante(
+			Restaurante restaurante) {
+		return formasPagamento.stream().filter(restaurante::aceita)
+				.collect(Collectors.toSet());
 	}
 }

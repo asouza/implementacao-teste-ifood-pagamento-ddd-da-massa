@@ -25,10 +25,19 @@ public class Restaurante {
 	@ManyToMany
 	@Size(min = 1)
 	private Set<FormaPagamento> formasPagamento = new HashSet<>();
+	
+	@Deprecated
+	public Restaurante() {
+
+	}
 
 	public Restaurante(String nome, FormaPagamento... possiveisFormasPagamento) {
 		this.nome = nome;
 		this.formasPagamento.addAll(Stream.of(possiveisFormasPagamento).collect(Collectors.toSet()));
+	}
+	
+	public boolean aceita(FormaPagamento formaPagamento) {
+		return this.formasPagamento.contains(formaPagamento);
 	}
 
 }
