@@ -29,29 +29,40 @@ public class TestePagamentoIfoodApplication implements CommandLineRunner{
 		manager.persist(dinheiro);
 		FormaPagamento cheque = new FormaPagamento("Cheque",TipoPagamento.CHEQUE);
 		manager.persist(cheque);
-		FormaPagamento posMachine = new FormaPagamento("Sei lá o que é pos machine",TipoPagamento.POS_MACHINE);
-		manager.persist(posMachine);
+		FormaPagamento maquininha = new FormaPagamento("Maquininha",TipoPagamento.POS_MACHINE);
+		manager.persist(maquininha);
 		
-		Restaurante bulger = new Restaurante("bulger");
-		bulger.adicionaPagamento(visa);
-		bulger.adicionaPagamento(master);
+		Restaurante bulger = new Restaurante("bulger",visa,master,maquininha);
 		manager.persist(bulger);
 		
-		Restaurante mil1900 = new Restaurante("1900");
-		mil1900.adicionaPagamento(visa);
-		mil1900.adicionaPagamento(master);
-		mil1900.adicionaPagamento(dinheiro);		
+		Restaurante mil1900 = new Restaurante("1900",visa,master,dinheiro);
 		manager.persist(mil1900);
 		
-		Restaurante ordinario = new Restaurante("ordinario");
-		ordinario.adicionaPagamento(cheque);		
+		Restaurante ordinario = new Restaurante("ordinario",cheque);
 		manager.persist(ordinario);
 		
-		Restaurante lejazz = new Restaurante("lejazz");
-		lejazz.adicionaPagamento(dinheiro);
-		lejazz.adicionaPagamento(cheque);
-		lejazz.adicionaPagamento(visa);
+		Restaurante lejazz = new Restaurante("lejazz",dinheiro,cheque,visa);
 		manager.persist(lejazz);
+		
+		Usuario albertoVisa = new Usuario("alberto",visa);
+		manager.persist(albertoVisa);
+		
+		Usuario heisenbergMaster = new Usuario("heisenberg",master);
+		manager.persist(heisenbergMaster);
+		
+		Usuario shakaOnline = new Usuario("shaka",master,visa);
+		manager.persist(shakaOnline);
+		
+		Usuario seiyaDinheiro = new Usuario("seiya",dinheiro);
+		manager.persist(seiyaDinheiro);
+		
+		Usuario starkMaquininha = new Usuario("stark",maquininha,dinheiro,cheque);
+		manager.persist(starkMaquininha);
+		
+		Usuario natasha = new Usuario("natasha",visa,master,maquininha,dinheiro,cheque);
+		manager.persist(natasha);
+		
+				
 		
 		
 		

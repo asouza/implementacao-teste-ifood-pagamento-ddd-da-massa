@@ -5,30 +5,29 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.util.Assert;
 
 @Entity
-public class Restaurante {
+public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
+	private @NotBlank String nome;
 	@ManyToMany
 	@Size(min = 1)
 	private Set<FormaPagamento> formasPagamento = new HashSet<>();
 
-	public Restaurante(String nome, FormaPagamento... possiveisFormasPagamento) {
+	public Usuario(@NotBlank String nome, @Size(min = 1) FormaPagamento... possiveisFormasPagamento) {
 		this.nome = nome;
 		this.formasPagamento.addAll(Stream.of(possiveisFormasPagamento).collect(Collectors.toSet()));
 	}
-
 }
