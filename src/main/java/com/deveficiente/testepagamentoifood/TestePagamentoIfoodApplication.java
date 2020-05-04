@@ -44,7 +44,7 @@ public class TestePagamentoIfoodApplication implements CommandLineRunner{
 		Restaurante lejazz = new Restaurante("lejazz",dinheiro,cheque,visa);
 		manager.persist(lejazz);
 		
-		Usuario albertoVisa = new Usuario("alberto",visa);
+		Usuario albertoVisa = new Usuario("alberto",visa,dinheiro);
 		manager.persist(albertoVisa);
 		
 		Usuario heisenbergMaster = new Usuario("heisenberg",master);

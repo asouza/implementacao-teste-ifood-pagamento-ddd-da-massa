@@ -3,11 +3,13 @@ package com.deveficiente.testepagamentoifood;
 public enum TipoPagamento {
 	CARTAO(true), DINHEIRO(false), CHEQUE(false), POS_MACHINE(false);
 
-	private boolean acceptOnline;
+	public final boolean aceitaOnline;
 
 	TipoPagamento(boolean acceptOnline) {
-		this.acceptOnline = acceptOnline;
+		this.aceitaOnline = acceptOnline;
 	}
+	
+	
 
 	
 }

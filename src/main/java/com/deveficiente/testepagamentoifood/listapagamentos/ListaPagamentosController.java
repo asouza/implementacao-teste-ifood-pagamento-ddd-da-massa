@@ -1,7 +1,10 @@
 package com.deveficiente.testepagamentoifood.listapagamentos;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -23,6 +26,8 @@ public class ListaPagamentosController {
 	private UsuarioRepository usuarioRepository;
 	@PersistenceContext
 	private EntityManager manager;
+	@Autowired
+	private List<PossivelRestricaoPagamento> possiveisRestricoes;
 
 	@GetMapping(value = "/pagamentos-disponiveis/{restauranteId}")
 	public Collection<DetalhePagamentoListaDTO> execute(String tokenUsuario,
@@ -32,7 +37,7 @@ public class ListaPagamentosController {
 		Restaurante restaurante = manager.find(Restaurante.class,
 				restauranteId);
 
-		return usuarioLogado.pagamentosPossiveisParaRestaurante(restaurante)
+		return usuarioLogado.pagamentosPossiveisParaRestaurante(restaurante,possiveisRestricoes)
 				.stream().map(DetalhePagamentoListaDTO::new)
 				.collect(Collectors.toList());
 	}

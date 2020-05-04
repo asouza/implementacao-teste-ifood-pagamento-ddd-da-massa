@@ -1,5 +1,6 @@
 package com.deveficiente.testepagamentoifood;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,6 +15,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.util.Assert;
+
+import com.deveficiente.testepagamentoifood.listapagamentos.PossivelRestricaoPagamento;
 
 @Entity
 public class Usuario {
@@ -37,10 +40,21 @@ public class Usuario {
 		this.formasPagamento.addAll(Stream.of(possiveisFormasPagamento)
 				.collect(Collectors.toSet()));
 	}
+	
+	public String getNome() {
+		return nome;
+	}
 
 	public Set<FormaPagamento> pagamentosPossiveisParaRestaurante(
-			Restaurante restaurante) {
+			Restaurante restaurante,
+			Collection<PossivelRestricaoPagamento> possiveisRestricoes) {
 		return formasPagamento.stream().filter(restaurante::aceita)
-				.collect(Collectors.toSet());
+
+				.filter(formaPagamento -> {
+					return possiveisRestricoes.stream()
+							.allMatch(restricao -> restricao.aceita(this,
+									formaPagamento));
+
+				}).collect(Collectors.toSet());
 	}
 }

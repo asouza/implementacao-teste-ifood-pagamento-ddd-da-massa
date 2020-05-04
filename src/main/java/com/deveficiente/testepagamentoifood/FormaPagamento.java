@@ -34,4 +34,8 @@ public class FormaPagamento {
 	public Long getId() {
 		return id;
 	}
+	
+	public boolean online() {
+		return tipo.aceitaOnline;
+	}
 }
