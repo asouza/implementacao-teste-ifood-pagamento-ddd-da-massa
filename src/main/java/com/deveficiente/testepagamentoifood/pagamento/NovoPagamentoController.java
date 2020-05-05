@@ -13,10 +13,12 @@ public class NovoPagamentoController {
 
 	@Autowired 
 	private CCSoEhValidoParaCartaoOnlineValidator ccSoEhValidoParaCartaoOnlineValidator;
+	@Autowired
+	private PagamentoValidoParaUsuarioRestauranteValidator pagamentoValidoParaUsuarioRestauranteValidator;
 	
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(ccSoEhValidoParaCartaoOnlineValidator);
+		binder.addValidators(ccSoEhValidoParaCartaoOnlineValidator,pagamentoValidoParaUsuarioRestauranteValidator);
 	}
 
 	@PostMapping(value = "/pagamentos")

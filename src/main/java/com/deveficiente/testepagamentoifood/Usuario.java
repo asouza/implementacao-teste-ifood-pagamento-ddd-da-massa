@@ -2,6 +2,7 @@ package com.deveficiente.testepagamentoifood;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,7 +41,7 @@ public class Usuario {
 		this.formasPagamento.addAll(Stream.of(possiveisFormasPagamento)
 				.collect(Collectors.toSet()));
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -56,5 +57,12 @@ public class Usuario {
 									formaPagamento));
 
 				}).collect(Collectors.toSet());
+	}
+
+	public boolean podePagarComForma(Restaurante restauranteEscolhido,
+			FormaPagamento formaPagamento,
+			List<PossivelRestricaoPagamento> possiveisRestricoes) {
+		return pagamentosPossiveisParaRestaurante(restauranteEscolhido,
+				possiveisRestricoes).contains(formaPagamento);
 	}
 }

@@ -29,6 +29,17 @@ public class NovoPagamentoForm {
 	@Positive
 	@NotNull
 	private BigDecimal valor;
+	@NotBlank
+	//gambiarra pq eu nao configurei a autenticacao para receber injetado o usuario nos lugares
+	private String tokenUsuario;
+	
+	public void setTokenUsuario(String tokenUsuario) {
+		this.tokenUsuario = tokenUsuario;
+	}
+	
+	public String getTokenUsuario() {
+		return tokenUsuario;
+	}
 
 	public void setCountryCode(CountryCode countryCode) {
 		this.countryCode = countryCode;
@@ -52,10 +63,6 @@ public class NovoPagamentoForm {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
-	}
-
-	public Long getFormaPagamentoId() {
-		return formaPagamentoId;
 	}
 
 	private boolean preencheuCC() {
@@ -88,5 +95,14 @@ public class NovoPagamentoForm {
 					"Todo cartão precisa do código com preenchido com 3 digitos");
 		}		
 	}
+
+	public Long getRestauranteId() {
+		return restauranteId;
+	}
+
+	public Long getFormaPagamentoId() {
+		return formaPagamentoId;
+	}
+	
 
 }
