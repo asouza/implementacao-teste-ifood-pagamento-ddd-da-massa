@@ -23,6 +23,28 @@ public class NovoPagamentoController {
 
 	@PostMapping(value = "/pagamentos")
 	public void execute(@Valid NovoPagamentoForm form) {
+		/*
+		 * Round 1
+		 * para aquela forma de pagamento eu acho quem vai processar(gateway,acquirer,sub...) a transacao
+		 * pode ser uma lista de processadores ordenada pelo custo em cima da transacao
+		 * pega o primeiro e processa a transacao
+		 * registra o valor da tx que foi levado pelo processador		 
+		 * 
+		 */
+		
+		/*
+		 * Round 2
+		 * O retorno pode ser refatorado para uma completable future
+		 */
+		
+		/*
+		 * Round 3
+		 * todo processamento tem timeout. Passou do timeout, vai para o próximo. 
+		 */
+		
+		/*
+		 * Round 4, traz o spring reactive?
+		 */
 	}
 
 }
