@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,7 @@ public class ListaPagamentosController {
 	private List<PossivelRestricaoPagamento> possiveisRestricoes;
 
 	@GetMapping(value = "/pagamentos-disponiveis/{restauranteId}")
+	@Cacheable(cacheNames = "pagamentos-possiveis-usuario")
 	public Collection<DetalhePagamentoListaDTO> execute(String tokenUsuario,
 			@PathVariable("restauranteId") Long restauranteId) {
 		Usuario usuarioLogado = usuarioRepository.findByNome(tokenUsuario);
