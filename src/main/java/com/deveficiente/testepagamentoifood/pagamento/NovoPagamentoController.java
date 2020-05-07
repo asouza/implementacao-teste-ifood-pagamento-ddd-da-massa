@@ -32,6 +32,21 @@ public class NovoPagamentoController {
 		 * 
 		 */
 		
+		TentativaPagamento tentativaPagamento =  form.toModel(manager);
+		ProcessadoresPagamento processadoresPagamento = todosProcessadores.filter(tentativaPagamento);
+		Transacao resultado = processadoresPagamento.paga();
+		//grava transacao
+		
+		if(resultado.deuCerto()) {
+			//retorna status para usuario
+		} 
+		
+		//retorna erro para o usuario
+		
+		
+		
+		
+		
 		/*
 		 * Round 2
 		 * O retorno pode ser refatorado para uma completable future
