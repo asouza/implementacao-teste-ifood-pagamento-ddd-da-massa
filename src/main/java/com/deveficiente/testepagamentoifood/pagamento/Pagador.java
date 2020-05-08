@@ -1,6 +1,7 @@
 package com.deveficiente.testepagamentoifood.pagamento;
 
 import java.math.BigDecimal;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Representa um transacionador(essa palavra existe?) em si. Acquiers, subacquirer, paga com maquina etc.
@@ -12,7 +13,7 @@ public interface Pagador extends Comparable<Pagador>{
 
 	BigDecimal custo();
 	
-	Transacao paga();
+	CompletableFuture<Transacao> paga();
 	
 	@Override
 		default int compareTo(Pagador outro) {

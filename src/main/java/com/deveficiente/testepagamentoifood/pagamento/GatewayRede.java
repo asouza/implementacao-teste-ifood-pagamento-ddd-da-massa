@@ -1,6 +1,7 @@
 package com.deveficiente.testepagamentoifood.pagamento;
 
 import java.math.BigDecimal;
+import java.util.concurrent.CompletableFuture;
 
 import javax.validation.constraints.NotNull;
 
@@ -20,10 +21,10 @@ public class GatewayRede implements Pagador{
 	}
 
 	@Override
-	public Transacao paga() {
+	public CompletableFuture<Transacao> paga() {
 		autorizadorDeTransacoes.autoriza(80, false);
 		System.out.println("[Rede] "+tentativaPagamento);
-		return new Transacao();
+		return CompletableFuture.completedFuture(new Transacao());
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.deveficiente.testepagamentoifood.pagamento;
 
 import java.math.BigDecimal;
+import java.util.concurrent.CompletableFuture;
 
 public class GatewayCielo implements Pagador{
 
@@ -18,10 +19,10 @@ public class GatewayCielo implements Pagador{
 	}
 
 	@Override
-	public Transacao paga() {
+	public CompletableFuture<Transacao> paga() {
 		autorizador.autoriza(110, true);
 		System.out.println("[Cielo] "+tentativaPagamento);
-		return new Transacao();
+		return CompletableFuture.completedFuture(new Transacao());
 	}
 
 }

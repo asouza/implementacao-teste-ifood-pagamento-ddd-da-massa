@@ -1,10 +1,13 @@
 package com.deveficiente.testepagamentoifood.pagamento;
 
+import java.util.concurrent.CompletableFuture;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +36,7 @@ public class NovoPagamentoController {
 	}
 
 	@PostMapping(value = "/pagamentos")
-	public void execute(@Valid NovoPagamentoForm form) {
+	public CompletableFuture<?> execute(@Valid NovoPagamentoForm form) {
 		/*
 		 * Round 1
 		 * para aquela forma de pagamento eu acho quem vai processar(gateway,acquirer,sub...) a transacao
@@ -42,20 +45,6 @@ public class NovoPagamentoController {
 		 * registra o valor da tx que foi levado pelo processador		 
 		 * 
 		 */
-		
-		TentativaPagamento tentativaPagamento =  form.toModel(manager,usuarioRepository);
-		Transacao resultado = todosProcessadores.paga(tentativaPagamento);
-		//grava transacao
-		
-		if(resultado.deuCerto()) {
-			//retorna status para usuario
-		} 
-		
-		//retorna erro para o usuario
-		
-		
-		
-		
 		
 		/*
 		 * Round 2
@@ -70,6 +59,18 @@ public class NovoPagamentoController {
 		/*
 		 * Round 4, traz o spring reactive?
 		 */
+		
+		TentativaPagamento tentativaPagamento =  form.toModel(manager,usuarioRepository);
+		CompletableFuture<Transacao> resultado = todosProcessadores.paga(tentativaPagamento);
+		//grava transacao
+		
+		return resultado.thenApply(transacao -> {
+			if(transacao.deuCerto()) {
+				return ResponseEntity.ok().build();
+			}			
+			return ResponseEntity.status(403).build();
+		});
+		
 	}
 
 }

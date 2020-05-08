@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class TodosProcessadoresPagamento {
 
 	}
 
-	public Transacao paga(TentativaPagamento tentativaPagamento) {
+	public CompletableFuture<Transacao> paga(TentativaPagamento tentativaPagamento) {
 
 		TreeSet<Pagador> pagadores = processadores.stream()
 				.map(processador -> processador.aceita(tentativaPagamento))
@@ -45,7 +46,7 @@ public class TodosProcessadoresPagamento {
 
 		for (Pagador pagador : pagadores) {
 			try {
-				Transacao novaTransacao = pagador.paga();
+				CompletableFuture<Transacao> novaTransacao = pagador.paga();
 				log.info("Pagamento realizado com sucesso para {} na tentativa {}",pagador,tentativaPagamento);
 				return novaTransacao;
 			} catch (FeignException e) {
@@ -56,7 +57,7 @@ public class TodosProcessadoresPagamento {
 		}
 		
 		log.error("Não foi possível realizar o pagamento para {}",tentativaPagamento);
-		return new Transacao();
+		return CompletableFuture.completedFuture(new Transacao());
 	}
 
 }
