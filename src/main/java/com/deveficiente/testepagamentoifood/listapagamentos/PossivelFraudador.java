@@ -2,7 +2,7 @@ package com.deveficiente.testepagamentoifood.listapagamentos;
 
 import org.springframework.stereotype.Service;
 
-import com.deveficiente.testepagamentoifood.FormaPagamento;
+import com.deveficiente.testepagamentoifood.TipoPagamento;
 import com.deveficiente.testepagamentoifood.Usuario;
 
 /**
@@ -14,9 +14,9 @@ import com.deveficiente.testepagamentoifood.Usuario;
 public class PossivelFraudador implements PossivelRestricaoPagamento{
 
 	@Override
-	public boolean aceita(Usuario usuario, FormaPagamento formaPagamento) {
+	public boolean aceita(Usuario usuario, TipoPagamento tipoPagamento) {
 		if(usuario.getNome().equals("alberto")) {
-			return !formaPagamento.online();			
+			return !tipoPagamento.aceitaOnline;			
 		}
 		return true;
 	}

@@ -1,7 +1,7 @@
 package com.deveficiente.testepagamentoifood;
 
 public enum TipoPagamento {
-	CARTAO(true), DINHEIRO(false), CHEQUE(false), POS_MACHINE(false);
+	visa(true),master(true),hipercard(true),elo(true),dinheiro(false), cheque(false), maquininha(false);
 
 	public final boolean aceitaOnline;
 
