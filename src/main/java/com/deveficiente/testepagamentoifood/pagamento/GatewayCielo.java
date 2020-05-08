@@ -5,8 +5,10 @@ import java.math.BigDecimal;
 public class GatewayCielo implements Pagador{
 
 	private TentativaPagamento tentativaPagamento;
+	private AutorizadorDeTransacoes autorizador;
 
-	public GatewayCielo(TentativaPagamento tentativaPagamento) {
+	public GatewayCielo(AutorizadorDeTransacoes autorizador, TentativaPagamento tentativaPagamento) {
+		this.autorizador = autorizador;
 		this.tentativaPagamento = tentativaPagamento;
 	}
 
@@ -17,6 +19,7 @@ public class GatewayCielo implements Pagador{
 
 	@Override
 	public Transacao paga() {
+		autorizador.autoriza(110, true);
 		System.out.println("[Cielo] "+tentativaPagamento);
 		return new Transacao();
 	}

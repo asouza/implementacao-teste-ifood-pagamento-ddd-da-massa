@@ -8,14 +8,22 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import feign.FeignException;
 
 @Service
 public class TodosProcessadoresPagamento {
 
 	private Set<ProcessadorPagamento> processadores = new HashSet<>();
+	
+	private static final Logger log = LoggerFactory
+			.getLogger(TodosProcessadoresPagamento.class);
+
 
 	@Autowired
 	public TodosProcessadoresPagamento(
@@ -35,7 +43,20 @@ public class TodosProcessadoresPagamento {
 		Assert.isTrue(!pagadores.isEmpty(),
 				"Precisa existir pelo menos um objeto do tipo Pagador disponível para realizar o pagamento. #bug");
 
-		return pagadores.iterator().next().paga();
+		for (Pagador pagador : pagadores) {
+			try {
+				Transacao novaTransacao = pagador.paga();
+				log.info("Pagamento realizado com sucesso para {} na tentativa {}",pagador,tentativaPagamento);
+				return novaTransacao;
+			} catch (FeignException e) {
+				log.error("Problema de rede enquanto tentava pagar com {} a tentiva {} => {}",pagador,tentativaPagamento,e);
+			} catch(Exception e) {
+				log.error("Azedou o mingau enquanto tentava pagar {} => {}",tentativaPagamento,e);
+			}
+		}
+		
+		log.error("Não foi possível realizar o pagamento para {}",tentativaPagamento);
+		return new Transacao();
 	}
 
 }

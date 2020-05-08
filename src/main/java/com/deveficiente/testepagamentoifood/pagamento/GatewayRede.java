@@ -7,8 +7,10 @@ import javax.validation.constraints.NotNull;
 public class GatewayRede implements Pagador{
 
 	private @NotNull TentativaPagamento tentativaPagamento;
+	private AutorizadorDeTransacoes autorizadorDeTransacoes;
 
-	public GatewayRede(@NotNull TentativaPagamento tentativaPagamento) {
+	public GatewayRede(AutorizadorDeTransacoes autorizadorDeTransacoes, @NotNull TentativaPagamento tentativaPagamento) {
+		this.autorizadorDeTransacoes = autorizadorDeTransacoes;
 		this.tentativaPagamento = tentativaPagamento;
 	}
 
@@ -19,6 +21,7 @@ public class GatewayRede implements Pagador{
 
 	@Override
 	public Transacao paga() {
+		autorizadorDeTransacoes.autoriza(80, false);
 		System.out.println("[Rede] "+tentativaPagamento);
 		return new Transacao();
 	}
