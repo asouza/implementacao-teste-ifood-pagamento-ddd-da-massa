@@ -1,23 +1,19 @@
 package com.deveficiente.testepagamentoifood.listapagamentos;
 
-import com.deveficiente.testepagamentoifood.FormaPagamento;
+import com.deveficiente.testepagamentoifood.TipoPagamento;
 
 public class DetalhePagamentoListaDTO {
 
-	private String descricao;
-	private Long id;
 
-	public DetalhePagamentoListaDTO(FormaPagamento formaPagamento) {
-		this.descricao = formaPagamento.getDescricao();
-		this.id = formaPagamento.getId();
+	private TipoPagamento tipoPagamento;
+
+	public DetalhePagamentoListaDTO(TipoPagamento tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
 	}
 	
-	public String getDescricao() {
-		return descricao;
+	public TipoPagamento getTipoPagamento() {
+		return tipoPagamento;
 	}
 	
-	public Long getId() {
-		return id;
-	}
 	
 }

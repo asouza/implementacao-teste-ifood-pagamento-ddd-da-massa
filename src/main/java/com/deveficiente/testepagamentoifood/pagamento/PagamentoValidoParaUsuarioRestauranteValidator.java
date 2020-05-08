@@ -36,9 +36,8 @@ public class PagamentoValidoParaUsuarioRestauranteValidator implements Validator
 		
 		Usuario logado = usuarioRepository.findByNome(form.getTokenUsuario());
 		Restaurante restauranteEscolhido = manager.find(Restaurante.class, form.getRestauranteId());
-		FormaPagamento formaPagamento = manager.find(FormaPagamento.class, form.getFormaPagamentoId());
 		
-		if(!logado.podePagarComForma(restauranteEscolhido,formaPagamento,possiveisRestricoes)) {
+		if(!logado.podePagarComForma(restauranteEscolhido,form.getTipoPagamento(),possiveisRestricoes)) {
 			errors.rejectValue(null, null, null, "essa forma de pagamento nao eh permitida");
 		}
 		

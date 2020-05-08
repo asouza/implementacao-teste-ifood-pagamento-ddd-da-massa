@@ -1,5 +1,7 @@
 package com.deveficiente.testepagamentoifood.pagamento;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.deveficiente.testepagamentoifood.listapagamentos.UsuarioRepository;
+
 @RestController
 public class NovoPagamentoController {
 
@@ -15,6 +19,13 @@ public class NovoPagamentoController {
 	private CCSoEhValidoParaCartaoOnlineValidator ccSoEhValidoParaCartaoOnlineValidator;
 	@Autowired
 	private PagamentoValidoParaUsuarioRestauranteValidator pagamentoValidoParaUsuarioRestauranteValidator;
+	
+	@PersistenceContext
+	private EntityManager manager;
+	@Autowired
+	private TodosProcessadoresPagamento todosProcessadores;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@InitBinder
 	public void init(WebDataBinder binder) {
@@ -32,9 +43,8 @@ public class NovoPagamentoController {
 		 * 
 		 */
 		
-		TentativaPagamento tentativaPagamento =  form.toModel(manager);
-		ProcessadoresPagamento processadoresPagamento = todosProcessadores.filter(tentativaPagamento);
-		Transacao resultado = processadoresPagamento.paga();
+		TentativaPagamento tentativaPagamento =  form.toModel(manager,usuarioRepository);
+		Transacao resultado = todosProcessadores.paga(tentativaPagamento);
 		//grava transacao
 		
 		if(resultado.deuCerto()) {

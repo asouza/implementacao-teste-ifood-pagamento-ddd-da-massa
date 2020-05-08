@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,22 +23,22 @@ public class Restaurante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	@ManyToMany
 	@Size(min = 1)
-	private Set<FormaPagamento> formasPagamento = new HashSet<>();
+	@ElementCollection
+	private Set<TipoPagamento> tiposPagamento = new HashSet<>();
 	
 	@Deprecated
 	public Restaurante() {
 
 	}
 
-	public Restaurante(String nome, FormaPagamento... possiveisFormasPagamento) {
+	public Restaurante(String nome, TipoPagamento... possiveisTiposPagamento) {
 		this.nome = nome;
-		this.formasPagamento.addAll(Stream.of(possiveisFormasPagamento).collect(Collectors.toSet()));
+		this.tiposPagamento.addAll(Stream.of(possiveisTiposPagamento).collect(Collectors.toSet()));
 	}
 	
-	public boolean aceita(FormaPagamento formaPagamento) {
-		return this.formasPagamento.contains(formaPagamento);
+	public boolean aceita(TipoPagamento tipoPagamento) {
+		return this.tiposPagamento.contains(tipoPagamento);
 	}
 
 }

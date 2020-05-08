@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,9 +27,9 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private @NotBlank String nome;
-	@ManyToMany
 	@Size(min = 1)
-	private Set<FormaPagamento> formasPagamento = new HashSet<>();
+	@ElementCollection
+	private Set<TipoPagamento> tiposPagamento = new HashSet<>();
 
 	@Deprecated
 	public Usuario() {
@@ -36,9 +37,9 @@ public class Usuario {
 	}
 
 	public Usuario(@NotBlank String nome,
-			@Size(min = 1) FormaPagamento... possiveisFormasPagamento) {
+			@Size(min = 1) TipoPagamento... possiveisTiposPagamento) {
 		this.nome = nome;
-		this.formasPagamento.addAll(Stream.of(possiveisFormasPagamento)
+		this.tiposPagamento.addAll(Stream.of(possiveisTiposPagamento)
 				.collect(Collectors.toSet()));
 	}
 
@@ -46,23 +47,23 @@ public class Usuario {
 		return nome;
 	}
 
-	public Set<FormaPagamento> pagamentosPossiveisParaRestaurante(
+	public Set<TipoPagamento> pagamentosPossiveisParaRestaurante(
 			Restaurante restaurante,
 			Collection<PossivelRestricaoPagamento> possiveisRestricoes) {
-		return formasPagamento.stream().filter(restaurante::aceita)
+		return tiposPagamento.stream().filter(restaurante::aceita)
 
-				.filter(formaPagamento -> {
+				.filter(tipoPagamento -> {
 					return possiveisRestricoes.stream()
 							.allMatch(restricao -> restricao.aceita(this,
-									formaPagamento));
+									tipoPagamento));
 
 				}).collect(Collectors.toSet());
 	}
 
 	public boolean podePagarComForma(Restaurante restauranteEscolhido,
-			FormaPagamento formaPagamento,
+			TipoPagamento tipoPagamento,
 			List<PossivelRestricaoPagamento> possiveisRestricoes) {
 		return pagamentosPossiveisParaRestaurante(restauranteEscolhido,
-				possiveisRestricoes).contains(formaPagamento);
+				possiveisRestricoes).contains(tipoPagamento);
 	}
 }

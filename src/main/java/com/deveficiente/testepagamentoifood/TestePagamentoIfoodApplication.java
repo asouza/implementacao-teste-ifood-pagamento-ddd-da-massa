@@ -9,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
+import static com.deveficiente.testepagamentoifood.TipoPagamento.*;
+
 @SpringBootApplication
 @EnableCaching
 public class TestePagamentoIfoodApplication implements CommandLineRunner{
@@ -23,30 +25,20 @@ public class TestePagamentoIfoodApplication implements CommandLineRunner{
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
-		FormaPagamento visa = new FormaPagamento("Visa",TipoPagamento.CARTAO);
-		manager.persist(visa);
-		FormaPagamento master = new FormaPagamento("Master",TipoPagamento.CARTAO);
-		manager.persist(master);
-		FormaPagamento dinheiro = new FormaPagamento("Dinheiro",TipoPagamento.DINHEIRO);
-		manager.persist(dinheiro);
-		FormaPagamento cheque = new FormaPagamento("Cheque",TipoPagamento.CHEQUE);
-		manager.persist(cheque);
-		FormaPagamento maquininha = new FormaPagamento("Maquininha",TipoPagamento.POS_MACHINE);
-		manager.persist(maquininha);
 		
-		Restaurante bulger = new Restaurante("bulger",visa,master,maquininha);
+		Restaurante bulger = new Restaurante("bulger",visa,master,elo,hipercard,maquininha);
 		manager.persist(bulger);
 		
-		Restaurante mil1900 = new Restaurante("1900",master,dinheiro);
+		Restaurante mil1900 = new Restaurante("1900",master,hipercard,dinheiro);
 		manager.persist(mil1900);
 		
-		Restaurante ordinario = new Restaurante("ordinario",cheque);
+		Restaurante ordinario = new Restaurante("ordinario",cheque,elo);
 		manager.persist(ordinario);
 		
 		Restaurante lejazz = new Restaurante("lejazz",dinheiro,cheque,visa);
 		manager.persist(lejazz);
 		
-		Usuario albertoVisa = new Usuario("alberto",visa,dinheiro);
+		Usuario albertoVisa = new Usuario("alberto",visa,elo,hipercard,dinheiro);
 		manager.persist(albertoVisa);
 		
 		Usuario heisenbergMaster = new Usuario("heisenberg",master);
@@ -61,7 +53,7 @@ public class TestePagamentoIfoodApplication implements CommandLineRunner{
 		Usuario starkMaquininha = new Usuario("stark",maquininha,dinheiro,cheque);
 		manager.persist(starkMaquininha);
 		
-		Usuario natasha = new Usuario("natasha",visa,master,maquininha,dinheiro,cheque);
+		Usuario natasha = new Usuario("natasha",visa,master,maquininha,dinheiro,cheque,elo,hipercard);
 		manager.persist(natasha);
 		
 				
