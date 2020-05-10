@@ -5,8 +5,8 @@ public enum TipoPagamento {
 
 	public final boolean aceitaOnline;
 
-	TipoPagamento(boolean acceptOnline) {
-		this.aceitaOnline = acceptOnline;
+	TipoPagamento(boolean aceitaOnline) {
+		this.aceitaOnline = aceitaOnline;
 	}
 	
 	

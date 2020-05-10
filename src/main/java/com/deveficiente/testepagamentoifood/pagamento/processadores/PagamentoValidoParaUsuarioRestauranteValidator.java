@@ -1,4 +1,4 @@
-package com.deveficiente.testepagamentoifood.pagamento;
+package com.deveficiente.testepagamentoifood.pagamento.processadores;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import com.deveficiente.testepagamentoifood.Restaurante;
 import com.deveficiente.testepagamentoifood.Usuario;
 import com.deveficiente.testepagamentoifood.listapagamentos.PossivelRestricaoPagamento;
 import com.deveficiente.testepagamentoifood.listapagamentos.UsuarioRepository;
+import com.deveficiente.testepagamentoifood.pagamento.validadores.NovoPagamentoForm;
 
 @Component
 public class PagamentoValidoParaUsuarioRestauranteValidator implements Validator{

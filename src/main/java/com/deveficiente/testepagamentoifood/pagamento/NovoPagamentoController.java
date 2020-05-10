@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deveficiente.testepagamentoifood.listapagamentos.UsuarioRepository;
+import com.deveficiente.testepagamentoifood.pagamento.processadores.PagamentoValidoParaUsuarioRestauranteValidator;
+import com.deveficiente.testepagamentoifood.pagamento.processadores.TodosProcessadoresPagamento;
+import com.deveficiente.testepagamentoifood.pagamento.validadores.CCSoEhValidoParaCartaoOnlineValidator;
+import com.deveficiente.testepagamentoifood.pagamento.validadores.NovoPagamentoForm;
 
 @RestController
 public class NovoPagamentoController {

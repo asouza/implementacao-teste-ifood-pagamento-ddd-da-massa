@@ -1,7 +1,10 @@
-package com.deveficiente.testepagamentoifood.pagamento;
+package com.deveficiente.testepagamentoifood.pagamento.processadores;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
+
+import com.deveficiente.testepagamentoifood.pagamento.TentativaPagamento;
+import com.deveficiente.testepagamentoifood.pagamento.Transacao;
 
 /**
  * Representa um transacionador(essa palavra existe?) em si. Acquiers, subacquirer, paga com maquina etc.

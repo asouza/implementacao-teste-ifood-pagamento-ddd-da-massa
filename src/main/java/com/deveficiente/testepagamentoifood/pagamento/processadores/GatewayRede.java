@@ -1,9 +1,13 @@
-package com.deveficiente.testepagamentoifood.pagamento;
+package com.deveficiente.testepagamentoifood.pagamento.processadores;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
 
 import javax.validation.constraints.NotNull;
+
+import com.deveficiente.testepagamentoifood.pagamento.AutorizadorDeTransacoes;
+import com.deveficiente.testepagamentoifood.pagamento.TentativaPagamento;
+import com.deveficiente.testepagamentoifood.pagamento.Transacao;
 
 public class GatewayRede implements Pagador{
 

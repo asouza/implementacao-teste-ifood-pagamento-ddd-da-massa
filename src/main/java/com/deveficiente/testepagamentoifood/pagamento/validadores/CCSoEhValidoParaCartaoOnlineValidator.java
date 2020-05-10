@@ -1,4 +1,4 @@
-package com.deveficiente.testepagamentoifood.pagamento;
+package com.deveficiente.testepagamentoifood.pagamento.validadores;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

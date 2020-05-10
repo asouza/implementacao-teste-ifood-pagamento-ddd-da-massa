@@ -1,4 +1,4 @@
-package com.deveficiente.testepagamentoifood.pagamento;
+package com.deveficiente.testepagamentoifood.pagamento.validadores;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

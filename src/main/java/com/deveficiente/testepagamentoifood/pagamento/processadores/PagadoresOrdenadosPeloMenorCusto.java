@@ -1,4 +1,4 @@
-package com.deveficiente.testepagamentoifood.pagamento;
+package com.deveficiente.testepagamentoifood.pagamento.processadores;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
+
+import com.deveficiente.testepagamentoifood.pagamento.TentativaPagamento;
 
 public class PagadoresOrdenadosPeloMenorCusto {
 

@@ -1,8 +1,10 @@
-package com.deveficiente.testepagamentoifood.pagamento;
+package com.deveficiente.testepagamentoifood.pagamento.processadores;
 
 import java.util.Optional;
 
 import com.deveficiente.testepagamentoifood.TipoPagamento;
+import com.deveficiente.testepagamentoifood.pagamento.AutorizadorDeTransacoes;
+import com.deveficiente.testepagamentoifood.pagamento.TentativaPagamento;
 
 public class ProcessadorCielo implements ProcessadorPagamento {
 

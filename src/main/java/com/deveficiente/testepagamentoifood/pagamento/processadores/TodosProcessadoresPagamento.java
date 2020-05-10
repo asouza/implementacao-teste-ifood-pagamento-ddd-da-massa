@@ -1,4 +1,4 @@
-package com.deveficiente.testepagamentoifood.pagamento;
+package com.deveficiente.testepagamentoifood.pagamento.processadores;
 
 import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
@@ -7,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.deveficiente.testepagamentoifood.pagamento.TentativaPagamento;
+import com.deveficiente.testepagamentoifood.pagamento.Transacao;
 
 import feign.FeignException;
 

@@ -1,4 +1,4 @@
-package com.deveficiente.testepagamentoifood.pagamento;
+package com.deveficiente.testepagamentoifood.pagamento.validadores;
 
 import java.math.BigDecimal;
 
@@ -17,6 +17,8 @@ import com.deveficiente.testepagamentoifood.Restaurante;
 import com.deveficiente.testepagamentoifood.TipoPagamento;
 import com.deveficiente.testepagamentoifood.Usuario;
 import com.deveficiente.testepagamentoifood.listapagamentos.UsuarioRepository;
+import com.deveficiente.testepagamentoifood.pagamento.CountryCode;
+import com.deveficiente.testepagamentoifood.pagamento.TentativaPagamento;
 
 public class NovoPagamentoForm {
 
