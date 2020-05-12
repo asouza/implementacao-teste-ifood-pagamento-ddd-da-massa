@@ -23,6 +23,8 @@ public class PagadoresOrdenadosPeloMenorCusto {
 	}
 	
 	public TreeSet<Pagador> filtra(TentativaPagamento tentativaPagamento){
+		Assert.notNull(tentativaPagamento, "A tentativa de pagamento não pode ser nula");
+		
 		TreeSet<Pagador> pagadores = processadores.stream()
 				.map(processador -> processador.aceita(tentativaPagamento))
 				.filter(Optional :: isPresent)
